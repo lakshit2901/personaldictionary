@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personal Dictionary</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f9f9f9;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 6px 12px;
+      margin-right: 5px;
+    }
+    .word-entry {
+      background-color: #fff;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>My Personal Dictionary</h1>
+  <form id="wordForm">
+    <input type="text" id="word" placeholder="Enter Word" required />
+    <textarea id="meaning" placeholder="Enter Meaning" required></textarea>
+    <textarea id="example" placeholder="Enter Example Sentence"></textarea>
+    <button type="submit">Add</button>
+  </form>
+
+  <input type="text" id="search" placeholder="Search Word" />
+
+  <div id="wordList"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
