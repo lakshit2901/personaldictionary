@@ -1,46 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Personal Dictionary</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 30px;
-      background-color: #f9f9f9;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-    }
-    button {
-      padding: 6px 12px;
-      margin-right: 5px;
-    }
-    .word-entry {
-      background-color: #fff;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-  </style>
-</head>
-<body>
-  <h1>My Personal Dictionary</h1>
-  <form id="wordForm">
-    <input type="text" id="word" placeholder="Enter Word" required />
-    <textarea id="meaning" placeholder="Enter Meaning" required></textarea>
-    <textarea id="example" placeholder="Enter Example Sentence"></textarea>
-    <button type="submit">Add</button>
-  </form>
 
-  <input type="text" id="search" placeholder="Search Word" />
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
 
-  <div id="wordList"></div>
+header {
+  text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+header h1 {
+  margin: 10px 0;
+  color: #333;
+}
+
+header p {
+  color: #555;
+}
+
+.container {
+  max-width: 700px;
+  margin: 30px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#wordList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#wordList li {
+  background: #f1f1f1;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 6px;
+  position: relative;
+}
+
+#wordList button {
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#wordList button:first-child {
+  background-color: #28a745;
+  color: white;
+  margin-right: 10px;
+}
+
+#wordList button:first-child:hover {
+  background-color: #218838;
+}
+
+#wordList button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+#wordList button:last-child:hover {
+  background-color: #c82333;
+}
