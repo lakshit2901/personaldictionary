@@ -7,20 +7,52 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>My Personal Dictionary</h1>
 
-  <form id="wordForm">
-    <input type="text" id="word" placeholder="Enter Word" required />
-    <input type="text" id="meaning" placeholder="Enter Meaning" required />
-    <input type="text" id="example" placeholder="Enter Example Sentence" />
-    <button type="submit">Add Word</button>
-  </form>
+  <header>
+    <img src="banner.png" alt="My Personal Dictionary Banner"
+         style="display: block; margin: 20px auto; width: 60%; max-width: 400px; border-radius: 10px;" />
 
-  <input type="text" id="search" placeholder="Search Words..." />
+    <h1>My Personal Dictionary</h1>
 
-  <div id="wordList"></div>
+    <div style="text-align: center; color: #444; font-size: 18px; margin-top: 10px;">
+      <ul style="display: inline-block; text-align: left; list-style: square; padding-left: 20px;">
+        <li>
+          <strong style="color: #007BFF;">Add</strong> and store new words along with their
+          <strong style="color: #28a745;">meanings</strong> to improve your vocabulary.
+        </li>
+        <li>
+          Optionally include <strong style="color: #fd7e14;">example sentences</strong> for better understanding.
+        </li>
+        <li>
+          <strong style="color: #6f42c1;">Edit</strong> existing words to keep your dictionary updated anytime.
+        </li>
+        <li>
+          <strong style="color: #dc3545;">Delete</strong> entries that are no longer needed with a single click.
+        </li>
+        <li>
+          Use the <strong style="color: #17a2b8;">search box</strong> to find any word instantly as you type.
+        </li>
+        <li>
+          This project works entirely in your browser using <strong style="color: #20c997;">localStorage</strong> — no backend or internet needed.
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Add a New Word</h2>
+    <form id="wordForm">
+      <input type="text" id="word" placeholder="Word" required>
+      <input type="text" id="meaning" placeholder="Meaning" required>
+      <input type="text" id="sentence" placeholder="Example Sentence (optional)">
+      <button type="submit">Add Word</button>
+    </form>
+
+    <h2>Your Words</h2>
+    <input type="text" id="searchInput" placeholder="Search word..." />
+    <ul id="wordList"></ul>
+  </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-
