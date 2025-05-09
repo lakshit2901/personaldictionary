@@ -1,31 +1,17 @@
+// Get elements
 const form = document.getElementById('wordForm');
 const wordList = document.getElementById('wordList');
 const searchInput = document.getElementById('searchInput');
 
-let dictionary = [];
+// Load saved data from localStorage
+let dictionary = JSON.parse(localStorage.getItem('dictionary')) || [];
 
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
+// Save to localStorage
+function saveToLocalStorage() {
+  localStorage.setItem('dictionary', JSON.stringify(dictionary));
+}
 
-  const word = document.getElementById('word').value.trim();
-  const meaning = document.getElementById('meaning').value.trim();
-  const sentence = document.getElementById('sentence').value.trim();
-
-  if (word && meaning) {
-    dictionary.push({ word, meaning, sentence });
-    displayWords(dictionary);
-    form.reset();
-  }
-});
-
-searchInput.addEventListener('input', function () {
-  const searchText = searchInput.value.toLowerCase();
-  const filtered = dictionary.filter(item =>
-    item.word.toLowerCase().includes(searchText)
-  );
-  displayWords(filtered);
-});
-
+// Display words in the list
 function displayWords(words) {
   wordList.innerHTML = '';
   words.forEach((item, index) => {
@@ -42,16 +28,48 @@ function displayWords(words) {
   });
 }
 
-function deleteWord(index) {
-  dictionary.splice(index, 1);
-  displayWords(dictionary);
-}
+// Add new word
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
 
+  const word = document.getElementById('word').value.trim();
+  const meaning = document.getElementById('meaning').value.trim();
+  const sentence = document.getElementById('sentence').value.trim();
+
+  if (word && meaning) {
+    dictionary.push({ word, meaning, sentence });
+    saveToLocalStorage();
+    displayWords(dictionary);
+    form.reset();
+  }
+});
+
+// Search words
+searchInput.addEventListener('input', function () {
+  const searchText = searchInput.value.toLowerCase();
+  const filtered = dictionary.filter(item =>
+    item.word.toLowerCase().includes(searchText)
+  );
+  displayWords(filtered);
+});
+
+// Edit word
 function editWord(index) {
   const entry = dictionary[index];
   document.getElementById('word').value = entry.word;
   document.getElementById('meaning').value = entry.meaning;
   document.getElementById('sentence').value = entry.sentence;
   dictionary.splice(index, 1);
+  saveToLocalStorage();
   displayWords(dictionary);
 }
+
+// Delete word
+function deleteWord(index) {
+  dictionary.splice(index, 1);
+  saveToLocalStorage();
+  displayWords(dictionary);
+}
+
+// On page load
+displayWords(dictionary);
