@@ -1,67 +1,57 @@
-const wordForm = document.getElementById("wordForm");
-const wordInput = document.getElementById("word");
-const meaningInput = document.getElementById("meaning");
-const exampleInput = document.getElementById("example");
-const searchInput = document.getElementById("search");
-const wordList = document.getElementById("wordList");
+const form = document.getElementById('wordForm');
+const wordList = document.getElementById('wordList');
+const searchInput = document.getElementById('searchInput');
 
-let words = JSON.parse(localStorage.getItem("words")) || [];
+let dictionary = [];
 
-function displayWords(filteredWords = words) {
-  wordList.innerHTML = "";
-  filteredWords.forEach((wordObj, index) => {
-    const div = document.createElement("div");
-    div.className = "word-entry";
-    div.innerHTML = `
-      <p><strong>Word =</strong> ${wordObj.word}</p>
-      <p><strong>Meaning =</strong> ${wordObj.meaning}</p>
-      <p><strong>Sentence =</strong> ${wordObj.example || "—"}</p>
-      <button onclick="editWord(${index})" style="font-size: 10px;">Edit</button>
-      <button onclick="deleteWord(${index})" style="font-size: 10px;">Delete</button>
-    `;
-    wordList.appendChild(div);
-  });
-}
-
-function saveToLocalStorage() {
-  localStorage.setItem("words", JSON.stringify(words));
-}
-
-wordForm.addEventListener("submit", function (e) {
+form.addEventListener('submit', function(e) {
   e.preventDefault();
-  const word = wordInput.value.trim();
-  const meaning = meaningInput.value.trim();
-  const example = exampleInput.value.trim();
+
+  const word = document.getElementById('word').value.trim();
+  const meaning = document.getElementById('meaning').value.trim();
+  const sentence = document.getElementById('sentence').value.trim();
 
   if (word && meaning) {
-    words.push({ word, meaning, example });
-    saveToLocalStorage();
-    displayWords();
-    wordForm.reset();
+    dictionary.push({ word, meaning, sentence });
+    displayWords(dictionary);
+    form.reset();
   }
 });
 
-searchInput.addEventListener("input", function () {
-  const query = this.value.toLowerCase();
-  const filtered = words.filter(w => w.word.toLowerCase().includes(query));
+searchInput.addEventListener('input', function () {
+  const searchText = searchInput.value.toLowerCase();
+  const filtered = dictionary.filter(item =>
+    item.word.toLowerCase().includes(searchText)
+  );
   displayWords(filtered);
 });
 
+function displayWords(words) {
+  wordList.innerHTML = '';
+  words.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <strong>Word:</strong> ${item.word}<br>
+      <strong>Meaning:</strong> ${item.meaning}<br>
+      ${item.sentence ? `<strong>Example:</strong> ${item.sentence}<br>` : ''}
+      <button onclick="editWord(${index})">Edit</button>
+      <button onclick="deleteWord(${index})">Delete</button>
+      <hr/>
+    `;
+    wordList.appendChild(li);
+  });
+}
+
 function deleteWord(index) {
-  words.splice(index, 1);
-  saveToLocalStorage();
-  displayWords();
+  dictionary.splice(index, 1);
+  displayWords(dictionary);
 }
 
 function editWord(index) {
-  const wordObj = words[index];
-  wordInput.value = wordObj.word;
-  meaningInput.value = wordObj.meaning;
-  exampleInput.value = wordObj.example;
-  words.splice(index, 1);
-  saveToLocalStorage();
-  displayWords();
+  const entry = dictionary[index];
+  document.getElementById('word').value = entry.word;
+  document.getElementById('meaning').value = entry.meaning;
+  document.getElementById('sentence').value = entry.sentence;
+  dictionary.splice(index, 1);
+  displayWords(dictionary);
 }
-
-// Initial display
-displayWords();
